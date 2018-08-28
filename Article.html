@@ -1,0 +1,48 @@
+<script type="text/babel">
+/*
+
+Functional Component
+
+  function Article(props){
+    const {article} = props
+    return (
+      <div>
+        <h3>{article.title}</h3>
+        <section>{article.text}</section>
+      </div>
+    )
+  }
+  */
+  
+  class Article extends React.Component {
+    constructor(props){
+      super(props)
+      this.state = {
+        isOpen: false
+      }
+    }
+    render(){ 
+      const {article} = this.props
+      const {isOpen} = this.state
+        return (
+          <div>
+            <h3>{article.title}</h3>
+            <button onClick = {this.toggleOpen}>
+              {isOpen ? 'Закрыть' : 'Открыть'}
+            </button>
+            {this.getBody()}
+          </div>
+        )
+     }
+     
+     getBody(){       
+       return this.state.isOpen ? <section>{article.text}</section> : null
+     }
+     
+     toggleOpen = () => {
+       this.setState({
+         isOpen: !this.state.isOpen
+       })
+     }
+  }
+</script>
