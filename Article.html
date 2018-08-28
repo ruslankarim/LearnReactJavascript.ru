@@ -35,7 +35,8 @@ Functional Component
         )
      }
      
-     getBody(){       
+     getBody(){
+       const {article} = this.props
        return this.state.isOpen ? <section>{article.text}</section> : null
      }
      
