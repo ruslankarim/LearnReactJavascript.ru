@@ -15,12 +15,14 @@ Functional Component
   */
   
   class Article extends React.Component {
+  
     constructor(props){
       super(props)
       this.state = {
         isOpen: false
       }
     }
+    
     render(){ 
       const {article} = this.props
       const {isOpen} = this.state
@@ -35,7 +37,8 @@ Functional Component
         )
      }
      
-     getBody(){       
+     getBody(){
+       const {article} = this.props
        return this.state.isOpen ? <section>{article.text}</section> : null
      }
      
@@ -44,5 +47,6 @@ Functional Component
          isOpen: !this.state.isOpen
        })
      }
+     
   }
 </script>
