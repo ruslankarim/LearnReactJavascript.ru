@@ -1,4 +1,4 @@
-<script type="text/babel">
+<script type="text/babel" data-plugins="transform-class-properties">
 /*
 
 Functional Component
@@ -13,6 +13,55 @@ Functional Component
     )
   }
   */
+  
+  function ArticleList({articles}){
+    
+    const articleElements = articles.map(article => <li><Article key = {article.id} article = {article} /></li>)
+    
+    return (
+      <ul>
+        {articleElements}
+      </ul>
+    )
+  }
+  
+  class CommentList extends React.Component {
+    constructor(props){
+      super(props)
+      this.state = {
+        isOpen: false
+      }
+    }
+    
+    getComments = () => {
+     const {comments} = this.props
+     const commentElements = this.props.comments.map(comment => <li><Comment key = {comment.id} comment = {comment} /></li>)
+     return this.state.isOpen ? commentElements : null
+   }
+    
+    render(){
+    const {comments} = this.props
+    
+      const {isOpen} = this.state
+      return(
+        <ul>
+          {this.getComments()}
+          <button onClick = {this.toggleOpen}>
+                {isOpen ? 'Закрыть' : 'Открыть'}
+              </button>
+        </ul>
+      )
+   }
+   
+  
+   
+   toggleOpen = () => {
+       this.setState({
+         isOpen: !this.state.isOpen
+       })
+     }
+  }
+  
   
   class Article extends React.Component {
   
@@ -39,7 +88,13 @@ Functional Component
      
      getBody(){
        const {article} = this.props
-       return this.state.isOpen ? <section>{article.text}</section> : null
+       return this.state.isOpen ? <section>
+                                   {article.text}
+                                   <br></br>
+                                   Comments:
+                                   <br></br>
+                                   <CommentList comments = {article.comments}/>
+                                  </section> : null
      }
      
      toggleOpen = () => {
@@ -48,5 +103,19 @@ Functional Component
        })
      }
      
+  }
+  
+  class Comment extends React.Component {
+    
+    render () {
+      const {comment} = this.props
+      
+      return (
+        <section>
+          {comment.text}
+        </section>
+        
+      )
+    }
   }
 </script>
